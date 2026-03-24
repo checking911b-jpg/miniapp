@@ -51,33 +51,23 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   100% { transform: rotate(0deg); }
 }
 
-/* text Step 1 với ô trắng và tự co font-size vừa 2 dòng */
+/* text Step 1 cố định 2 dòng */
 .step1-text {
-  display: inline-block;
+  display:block;
   margin-top:20px;
   padding:18px 25px;
   border-radius:15px;
   background: rgba(255,255,255,0.9);
-  font-size: 20px;
+  font-size:19px;
   font-weight:500;
   color:#111;
-  line-height:1.4;
+  line-height:1.5;
+  max-width:360px;
   text-align:center;
-  max-width:100%;
-  white-space: normal;
-  overflow: hidden;
+  white-space: pre; /* giữ xuống dòng theo ý */
 }
 
-/* JavaScript sẽ tự giảm font nếu vượt quá 2 dòng */
-.step1-text[data-adjust] {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* chỉ 2 dòng */
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* nút Xác nhận rộng bằng text */
+/* nút Xác nhận */
 .step1-btn {
   margin-top:20px;
   padding:16px;
@@ -100,8 +90,9 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 
 <div class="container" id="step1-container">
   <div class="icon">👋</div>
-  <div class="step1-text" id="step1-text" data-adjust>
-Bạn cần xác nhận mình là người thật, nhấp vào nút bên dưới để bắt đầu truy cập vào các tệp hoàn toàn miễn phí. Hãy làm theo hướng dẫn để mở bước tiếp theo.
+  <div class="step1-text">
+Bạn cần xác nhận mình là người dùng thật , hãy
+     nhấp vào nút bên dưới để bắt đầu !
   </div>
   <button class="step1-btn" onclick="step2()">Xác nhận</button>
 </div>
@@ -110,25 +101,10 @@ Bạn cần xác nhận mình là người thật, nhấp vào nút bên dưới
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-// Step 2
 function step2(){
   document.getElementById("step1-container").style.display = "none";
-  // Step 2 sẽ xuất hiện
+  // Step 2 sẽ xuất hiện ở đây
 }
-
-// Tự điều chỉnh font-size để vừa 2 dòng
-function adjustFont(){
-  const el = document.getElementById("step1-text");
-  let font = 20;
-  el.style.fontSize = font+"px";
-  while(el.scrollHeight > el.clientHeight && font > 12){
-    font -= 1;
-    el.style.fontSize = font+"px";
-  }
-}
-
-window.onload = adjustFont;
-window.onresize = adjustFont;
 </script>
 </body>
 </html>
