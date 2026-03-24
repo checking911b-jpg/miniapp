@@ -36,7 +36,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 
 /* icon vẫy tay to */
 .icon {
-  font-size:120px;
+  font-size:140px;
   animation: wave 1.2s infinite;
 }
 
@@ -54,7 +54,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 /* text Step 1 với nền trắng */
 .step1-text {
   display:inline-block;
-  margin-top:20px;
+  margin-top:20px;          /* khoảng cách icon -> text */
   padding:15px 20px;
   border-radius:12px;
   background: rgba(255,255,255,0.9); /* ô trắng mờ */
@@ -62,13 +62,14 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   font-weight:500;
   color:#111;
   line-height:1.5;
+  max-width:350px;          /* giới hạn để text chỉ 2 dòng */
 }
 
 /* nút Xác nhận to bằng text */
 .step1-btn {
   margin-top:15px;
   width: calc(100% + 40px); /* rộng bằng ô text + padding */
-  max-width:300px;          /* giới hạn chiều rộng */
+  max-width:350px;
   padding:14px;
   font-size:18px;
   border:none;
@@ -88,7 +89,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 <div class="container" id="step1-container">
   <div class="icon">👋</div>
   <div class="step1-text">
-    Bạn cần xác nhận mình là người thật , hãy<br>
+    Bạn cần xác nhận mình là người thật , HÃY<br>
     nhấp vào nút bên dưới để bắt đầu!
   </div>
   <button class="step1-btn" onclick="step2()">Xác nhận</button>
@@ -99,9 +100,8 @@ let tg = window.Telegram.WebApp;
 tg.expand();
 
 function step2(){
-  // ẩn Step 1
   document.getElementById("step1-container").style.display = "none";
-  // hiện Step 2 (nếu có)
+  // Step 2 xuất hiện nếu có
 }
 </script>
 </body>
