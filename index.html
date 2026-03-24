@@ -34,9 +34,9 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   text-align:center;
 }
 
-/* icon vẫy tay */
+/* icon vẫy tay to */
 .icon {
-  font-size:90px;
+  font-size:120px;
   animation: wave 1.2s infinite;
 }
 
@@ -51,20 +51,26 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   100% { transform: rotate(0deg); }
 }
 
-/* text Step 1 */
+/* text Step 1 với nền trắng */
 .step1-text {
-  margin-top:20px; /* khoảng cách icon -> text */
-  font-size:17px;
+  display:inline-block;
+  margin-top:20px;
+  padding:15px 20px;
+  border-radius:12px;
+  background: rgba(255,255,255,0.9); /* ô trắng mờ */
+  font-size:18px;
   font-weight:500;
-  color:#fff;
+  color:#111;
+  line-height:1.5;
 }
 
-/* nút Xác nhận */
+/* nút Xác nhận to bằng text */
 .step1-btn {
-  margin-top:15px; /* khoảng cách text -> nút */
-  width: 200px;
+  margin-top:15px;
+  width: calc(100% + 40px); /* rộng bằng ô text + padding */
+  max-width:300px;          /* giới hạn chiều rộng */
   padding:14px;
-  font-size:16px;
+  font-size:18px;
   border:none;
   border-radius:10px;
   background:#3b9edb;
@@ -82,8 +88,8 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 <div class="container" id="step1-container">
   <div class="icon">👋</div>
   <div class="step1-text">
-    Bạn cần xác nhận mình là người thật,<br>
-    hãy nhấp vào nút bên dưới để bắt đầu!
+    Bạn cần xác nhận mình là người thật , hãy<br>
+    nhấp vào nút bên dưới để bắt đầu!
   </div>
   <button class="step1-btn" onclick="step2()">Xác nhận</button>
 </div>
@@ -95,7 +101,7 @@ tg.expand();
 function step2(){
   // ẩn Step 1
   document.getElementById("step1-container").style.display = "none";
-  // hiện Step 2 (chưa có code Step 2 trong ví dụ này)
+  // hiện Step 2 (nếu có)
 }
 </script>
 </body>
