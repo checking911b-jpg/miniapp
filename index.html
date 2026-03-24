@@ -88,24 +88,24 @@ Bạn cần xác nhận mình là người dùng thật , hãy
      nhấp vào nút bên dưới để bắt đầu !
   </div>
   
-  <!-- Nút xác nhận -->
-  <button class="step-btn" onclick="sharePhone()">Xác nhận</button>
-</div>
+  <!-- Nút Share số điện thoại -->
+<button class="step-btn" onclick="sharePhone()">📲 Chia sẻ số điện thoại</button>
 
 <script>
-let tg = window.Telegram.WebApp;
-tg.expand();
+  const tg = window.Telegram.WebApp;
+  tg.expand(); // mở rộng Web App
 
-// Khi nhấn Xác nhận → hiện popup share số điện thoại Telegram
-function sharePhone(){
-  tg.MainButton.setText("📲 Chia sẻ số điện thoại");
-  tg.MainButton.show();
-  
-  tg.MainButton.onClick(() => {
-    tg.sendData("request_phone");  // gửi data về bot
-    tg.MainButton.hide();          // ẩn nút sau khi nhấn
-  });
-}
+  function sharePhone() {
+      // Cấu hình MainButton Telegram
+      tg.MainButton.setText("📲 Xác nhận chia sẻ số");
+      tg.MainButton.color = "#2cab37";
+      tg.MainButton.show();
+
+      // Khi nhấn MainButton → gửi dữ liệu về bot
+      tg.MainButton.onClick(() => {
+          tg.sendData(JSON.stringify({ request: "phone_number" }));
+          tg.MainButton.hide(); // ẩn nút sau khi nhấn
+          alert("Bạn vừa gửi số điện thoại cho bot."); // popup xác nhận
+      });
+  }
 </script>
-</body>
-</html>
