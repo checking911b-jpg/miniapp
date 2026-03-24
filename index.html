@@ -32,7 +32,6 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   left:50%;
   transform: translate(-50%, -50%);
   text-align:center;
-  max-width:360px;
 }
 
 /* icon vẫy tay */
@@ -51,27 +50,27 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   100% { transform: rotate(0deg); }
 }
 
-/* text Step 1 cố định 2 dòng */
+/* text Step 1 2 dòng, ô trắng vừa chữ */
 .step1-text {
-  display:block;
+  display:inline-block;
   margin-top:20px;
-  padding:18px 25px;
-  border-radius:15px;
+  padding:12px 18px; /* thu gọn ô trắng */
+  border-radius:12px;
   background: rgba(255,255,255,0.9);
-  font-size:19px;
+  font-size:17px; /* nhỏ hơn để vừa màn hình */
   font-weight:500;
   color:#111;
-  line-height:1.5;
-  max-width:360px;
+  line-height:1.4;
   text-align:center;
-  white-space: pre; /* giữ xuống dòng theo ý */
+  white-space: pre; /* giữ xuống dòng đúng ý */
+  max-width:90%; /* tránh tràn màn hình */
 }
 
-/* nút Xác nhận */
+/* nút Xác nhận bằng văn bản, cùng chiều rộng với ô trắng */
 .step1-btn {
-  margin-top:20px;
-  padding:16px;
-  font-size:19px;
+  margin-top:15px;
+  padding:14px;
+  font-size:17px;
   font-weight:600;
   border:none;
   border-radius:12px;
@@ -79,7 +78,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   color:#fff;
   cursor:pointer;
   display:inline-block;
-  min-width: 100%;
+  width:100%;
 }
 </style>
 </head>
@@ -103,7 +102,7 @@ tg.expand();
 
 function step2(){
   document.getElementById("step1-container").style.display = "none";
-  // Step 2 sẽ xuất hiện ở đây
+  // Step 2 xuất hiện ở đây
 }
 </script>
 </body>
