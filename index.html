@@ -8,7 +8,6 @@
 <style>
 body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 
-/* nền ảnh */
 .bg {
   position: fixed;
   width: 100%;
@@ -18,14 +17,12 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   transform: scale(1.05);
 }
 
-/* overlay mờ */
 .overlay {
   position: fixed;
   width:100%; height:100%;
   background: rgba(0,0,0,0.25);
 }
 
-/* container căn giữa */
 .container {
   position:absolute;
   top:50%;
@@ -35,7 +32,6 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   display: inline-block;
 }
 
-/* icon vẫy tay */
 .icon {
   font-size:170px;
   animation: wave 1.2s infinite;
@@ -51,26 +47,24 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   100% { transform: rotate(0deg); }
 }
 
-/* text Step 1 */
 .step-text {
   display:inline-block;
   margin-top:20px;
-  padding:10px 15px; /* ô vừa chữ */
+  padding:10px 15px;
   border-radius:12px;
   background: rgba(255,255,255,0.9);
-  font-size:17px;
+  font-size:16px;
   font-weight:500;
   color:#111;
   line-height:1.4;
   text-align:center;
-  white-space: pre; /* giữ xuống dòng y hệt */
+  white-space: pre;
 }
 
-/* nút Xác nhận & Share */
 .step-btn {
-  margin-top:10px;
+  margin-top:15px;
   padding:12px 0;
-  font-size:17px;
+  font-size:16px;
   font-weight:600;
   border:none;
   border-radius:12px;
@@ -78,7 +72,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   color:#fff;
   cursor:pointer;
   display:inline-block;
-  width:100%; /* rộng bằng ô trắng */
+  width:100%;
 }
 </style>
 </head>
@@ -92,7 +86,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   <div class="step-text">
 Bạn cần xác nhận mình là người dùng thật , hãy
      nhấp vào nút bên dưới để bắt đầu !
-   </div>
+  </div>
   
   <!-- Nút xác nhận -->
   <button class="step-btn" onclick="sharePhone()">Xác nhận</button>
@@ -102,7 +96,7 @@ Bạn cần xác nhận mình là người dùng thật , hãy
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-// Nhấn Xác nhận → hiện popup share số
+// Khi nhấn Xác nhận → hiện popup share số điện thoại Telegram
 function sharePhone(){
   tg.MainButton.setText("📲 Chia sẻ số điện thoại");
   tg.MainButton.show();
