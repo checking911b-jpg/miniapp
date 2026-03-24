@@ -18,7 +18,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   transform: scale(1.05);
 }
 
-/* overlay */
+/* overlay mờ */
 .overlay {
   position: fixed;
   width:100%; height:100%;
@@ -34,13 +34,12 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   text-align:center;
 }
 
-/* icon vẫy tay to */
+/* icon vẫy tay */
 .icon {
-  font-size:140px;
+  font-size:170px; /* to hơn */
   animation: wave 1.2s infinite;
 }
 
-/* animation vẫy tay */
 @keyframes wave {
   0% { transform: rotate(0deg); }
   15% { transform: rotate(14deg); }
@@ -51,29 +50,30 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   100% { transform: rotate(0deg); }
 }
 
-/* text Step 1 với nền trắng */
+/* text Step 1 với ô trắng */
 .step1-text {
   display:inline-block;
   margin-top:20px;          /* khoảng cách icon -> text */
-  padding:15px 20px;
-  border-radius:12px;
-  background: rgba(255,255,255,0.9); /* ô trắng mờ */
-  font-size:18px;
+  padding:18px 25px;
+  border-radius:15px;
+  background: rgba(255,255,255,0.9);
+  font-size:19px;
   font-weight:500;
   color:#111;
   line-height:1.5;
-  max-width:350px;          /* giới hạn để text chỉ 2 dòng */
+  max-width:360px;          /* chỉ 2 dòng */
 }
 
-/* nút Xác nhận to bằng text */
+/* nút Xác nhận */
 .step1-btn {
-  margin-top:15px;
-  width: calc(100% + 40px); /* rộng bằng ô text + padding */
-  max-width:350px;
-  padding:14px;
-  font-size:18px;
+  margin-top:20px;           /* khoảng cách text -> nút */
+  width: calc(100% + 50px);  /* rộng bằng ô text + padding */
+  max-width:360px;
+  padding:16px;
+  font-size:19px;
+  font-weight:600;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   background:#3b9edb;
   color:#fff;
   cursor:pointer;
@@ -85,7 +85,6 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 <div class="bg"></div>
 <div class="overlay"></div>
 
-<!-- Container trung tâm -->
 <div class="container" id="step1-container">
   <div class="icon">👋</div>
   <div class="step1-text">
@@ -101,7 +100,7 @@ tg.expand();
 
 function step2(){
   document.getElementById("step1-container").style.display = "none";
-  // Step 2 xuất hiện nếu có
+  // Step 2 xuất hiện ở đây
 }
 </script>
 </body>
