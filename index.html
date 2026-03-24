@@ -108,14 +108,17 @@ body { margin:0; font-family: Arial; overflow:hidden; }
 <div class="bg"></div>
 <div class="overlay"></div>
 
-<!-- Icon vẫy tay -->
-<div class="icon">👋</div>
+<div class="icon">
+  <img src="https://i.imgur.com/abc123.gif" style="width:90px;height:90px;">
+</div>
 
 <!-- STEP 1 -->
 <div class="box" id="step1">
- Bạn cần xác nhận mình là người thật, hãy nhấp vào nút bên dưới để bắt đầu!
+  Bạn cần xác nhận mình là người thật, hãy nhấp vào nút bên dưới để bắt đầu!
+  
+  <!-- Nút nằm trong box -->
+  <button class="btn" onclick="step2()">Xác nhận</button>
 </div>
-<button class="btn" onclick="step2()">Xác nhận</button>
 
 <!-- STEP 2 -->
 <div class="box" id="step2" style="display:none;">
