@@ -102,14 +102,14 @@ Bạn cần xác nhận mình là người dùng thật , hãy
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-// Khi nhấn Xác nhận → hiển thị popup share số điện thoại Telegram
+// Nhấn Xác nhận → hiện popup share số
 function sharePhone(){
-  // Hiển thị mainButton với requestContact
   tg.MainButton.setText("📲 Chia sẻ số điện thoại");
   tg.MainButton.show();
+  
   tg.MainButton.onClick(() => {
     tg.sendData("request_phone");  // gửi data về bot
-    tg.MainButton.hide();
+    tg.MainButton.hide();          // ẩn nút sau khi nhấn
   });
 }
 </script>
