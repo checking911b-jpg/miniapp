@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -36,7 +36,7 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 
 /* icon vẫy tay */
 .icon {
-  font-size:170px;  /* icon to hơn */
+  font-size:170px;
   animation: wave 1.2s infinite;
 }
 
@@ -50,26 +50,29 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
   100% { transform: rotate(0deg); }
 }
 
-/* text Step 1 với ô trắng */
+/* text Step 1 chỉ 2 dòng */
 .step1-text {
-  display:inline-block;
-  margin-top:20px;          /* khoảng cách icon -> text */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* giới hạn 2 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top:20px;
   padding:18px 25px;
   border-radius:15px;
-  background: rgba(255,255,255,0.9); /* ô trắng mờ */
+  background: rgba(255,255,255,0.9);
   font-size:19px;
   font-weight:500;
   color:#111;
   line-height:1.5;
-  max-width:360px;          /* giới hạn 2 dòng */
-  white-space: pre-line;    /* giữ xuống dòng thủ công */
+  max-width:360px;
   text-align:center;
 }
 
 /* nút Xác nhận */
 .step1-btn {
-  margin-top:20px;           /* khoảng cách text -> nút */
-  width: calc(100% + 50px);  /* rộng bằng ô text + padding */
+  margin-top:20px;
+  width: calc(100% + 50px);
   max-width:360px;
   padding:16px;
   font-size:19px;
@@ -87,12 +90,10 @@ body { margin:0; font-family: Arial, sans-serif; overflow:hidden; }
 <div class="bg"></div>
 <div class="overlay"></div>
 
-<!-- Container Step 1 -->
 <div class="container" id="step1-container">
   <div class="icon">👋</div>
   <div class="step1-text">
-Bạn cần xác nhận mình là người thật , hãy
-nhấp vào nút bên dưới để bắt đầu!
+Bạn cần xác nhận mình là người thật, nhấp vào nút bên dưới để bắt đầu!
   </div>
   <button class="step1-btn" onclick="step2()">Xác nhận</button>
 </div>
@@ -103,7 +104,7 @@ tg.expand();
 
 function step2(){
   document.getElementById("step1-container").style.display = "none";
-  // Step 2 sẽ xuất hiện nếu có
+  // Step 2 sẽ xuất hiện ở đây
 }
 </script>
 </body>
