@@ -104,18 +104,12 @@ Bạn cần xác nhận mình là người dùng thật , hãy
 <script>
 const tg = window.Telegram.WebApp;
 
-tg.ready();     // 🔥 QUAN TRỌNG
+tg.ready();     // 👈 THÊM DÒNG NÀY
 tg.expand();
 
 document.getElementById("btn").onclick = () => {
-    // test click
-    // alert("ok");
-
     tg.sendData(JSON.stringify({
         action: "request_phone"
     }));
 };
 </script>
-
-</body>
-</html>
