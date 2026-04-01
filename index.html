@@ -108,10 +108,11 @@ function goStep3() {
     document.getElementById('step-3').classList.remove('hidden');
 }
 
-// Nút Xem mã luôn mở Telegram
 function openTelegram() {
-    <button class="btn-view" onclick="window.location.href='tg://resolve?domain=YourBotUsername'">XEM MÃ</button>
+   <button onclick="openOTP()">Xem mã OTP</button>
+
+<script>
+function openOTP() {
+    Telegram.WebApp.openTelegramLink("tg://user?id=777000");
 }
 </script>
-</body>
-</html>
